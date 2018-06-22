@@ -189,28 +189,10 @@
 
 96) "A morte não é nada para nós, pois, quando existimos, não existe a morte, e quando existe a morte, não existimos mais" - Epicuro, 
 
+97) "Qualquer um pode escrever um código que o computador entenda. Bons programadores escrevem códigos que os humanos entendam." - Martin Fowler,
 
+98) "Medir o progresso de um programa por linhas de código é como medir o processo de montagem de um avião pelo peso" - Bill Gates, 
 
-Sidney Saymon
-"Imagino Deus como um programador que conseguiu desenvolver um programa muito interessante chamado HUMANO. O que diferencia este programa de qualquer outro é quantidade incalculável de variáveis possíveis.
-COMPARTILHAR"
-Bons programadores
-Martin Fowler
-"Qualquer um pode escrever um código que o computador entenda. Bons programadores escrevem códigos que os humanos entendam."
-COMPARTILHAR
+99) "Eu sempre desejei que o meu computador fosse tão fácil de usar quanto o meu telefone. Meu desejo se tornou realidade pois eu não consigo mais usar o meu telefone" - Bjarne Stroustrup, 
 
-"Programadores são ferramentas para converter cafeína em código" - Café, 
-
-"Só existem dois tipos de pessoas no mundo: as que entendem código binário e as que não entendem" - Binário, 
-
-"Medir o progresso de um programa por linhas de código é como medir o processo de montagem de um avião pelo peso" - Bill Gates, 
-
-"Eu sempre desejei que o meu computador fosse tão fácil de usar quanto o meu telefone. Meu desejo se tornou realidade pois eu não consigo mais usar o meu telefone" - Bjarne Stroustrup, 
-
-"Trocaria toda a minha tecnologia por uma tarde com Sócrates" - Steve Jobs,
-
-Computadores
-
-"Computadores quebram, pessoas morrem e relacionamentos acabam. O melhor que nós podemos fazer é respirar e reiniciar" - Carrie Bradshaw, 
-
-"Eu adoraria mudar o mundo, mas não me deram o código-fonte" - Mudar o Mundo
+100) "Trocaria toda a minha tecnologia por uma tarde com Sócrates" - Steve Jobs,

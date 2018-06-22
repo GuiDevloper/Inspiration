@@ -1,0 +1,11 @@
+{
+  "name": "inspiration",
+  "version": "0.9.0",
+  "description": "Inspiration Project",
+  "main": "inspiration.js",
+  "scripts": {
+    "test": "Nothing to show here"
+  },
+  "author": "GuiDevloper",
+  "license": "ISC"
+}

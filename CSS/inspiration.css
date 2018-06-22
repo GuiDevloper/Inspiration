@@ -1,0 +1,25 @@
+    /*.card {
+      opacity: 0.9;
+      filter: Alpha(opacity=90);
+    }*/
+    html {
+      line-height: 1.0;
+    }
+    .grid-item {
+      width: 25%;
+    }
+    .flow-text {
+      font-size: 1.4em;
+    }
+    @media screen and (max-width: 380px) {
+      .grid-item{ width: 100%; }
+    }
+    @media screen and (min-width: 381px) and (max-width: 499px) {
+      .grid-item{ width: 50%; }
+    }
+    @media screen and (min-width: 500px) and (max-width: 768px) {
+      .grid-item{ width: 33%; }
+    }
+    @media screen and (min-width: 769px) {
+      .grid-item{ width: 25%; }
+    }
