@@ -8,6 +8,20 @@ body {
   font-size: 1.2rem;
   font-weight: 300;
   color: rgba(0,0,0,0.87);
+  overflow-x: hidden;
+}
+body::-webkit-scrollbar {
+  width: 5px;
+}
+body::-webkit-scrollbar-thumb {
+  background: #9d1328;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+body::-webkit-scrollbar-track {
+  background-color: #171717;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
 }
 
 .row {
