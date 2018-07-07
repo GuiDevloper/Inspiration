@@ -10,6 +10,24 @@ document.addEventListener('DOMContentLoaded', function(){
       el.style.cssText += ";" + value;
     }
   }
+// function que realiza fade em element
+function fade(type, el, duration){
+  var s = el.style, step = 25/(duration || 300);
+  function delay() {
+    if (type == 'in') {
+      s.display = isFull() ? "none" : s.display;
+    } else {
+      s.opacity = isFull() ? 1 : s.opacity;
+    }
+    //Se realiza callback
+    !isFull() ? setTimeout(delay, 25) : '';
+    //Se esta finalizado
+    function isFull(){
+      return (s.opacity -= step) < 0 || (parseFloat(s.opacity) + step) > 1;
+    };
+  };
+};
+
   
   setCSS(getByClass("grid-item"), "display: none");
   var mark = getByClass("row")[0].innerHTML;
@@ -23,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function(){
       img = i+".gif";
     }
     getByClass("row")[0].innerHTML += 
-      "<div class='grid-item col s6 m4 l3'><div class='card hoverable'>"+
+      "<div class='grid-item'><div class='card hoverable'>"+
       "<div class='card-image'><img class='materialboxed' size='100%' "+
       "data-caption='Programe <code> e Desenvolva' src='card/"+img+"'>"+
       "</div><div class='frase' id='frase"+i+"'><div class='card-content flow-toggle'>"+
@@ -104,16 +122,19 @@ var Ajax = {
   };
 
   var $container = getByClass("grid");
-  $container.imagesLoaded(function() {
-    $('.grid-item').fadeIn(1000);
-      $container.masonry({
-        itemSelector: '.grid-item',
-        //columnwidth: 100,
-        //gutter: 20,
-        //isFitWidth: true
-      });
-    });
+  imagesLoaded($container, function() {
+    //fade("in", getByClass("grid-item"), 1000);
+    getByClass("grid-item")[0].style.display = 'block';
+    $('.grid').masonry({
+      itemSelector: '.grid-item',
+      columnwidth: '.grid-sizer',
+      //isFitWidth: true,
+      percentPosition: true
+      //originTop: false
+    })
+    //msnry.layout();
   });
+}); 
 /*$(".card.hoverable").on({
     mouseenter: function() {
     var tamNovo = $(this).css('height');
