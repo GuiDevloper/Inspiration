@@ -27,7 +27,6 @@ function fade(type, el, duration){
     };
   };
 };
-
   
   setCSS(getByClass("grid-item"), "display: none");
   var mark = getByClass("row")[0].innerHTML;
@@ -45,18 +44,10 @@ function fade(type, el, duration){
       "<div class='card-image'><img class='materialboxed' size='100%' "+
       "data-caption='Programe <code> e Desenvolva' src='card/"+img+"'>"+
       "</div><div class='frase' id='frase"+i+"'><div class='card-content flow-toggle'>"+
-      "<p class='flow-text'>...</p></div><div class='card-action' id='card-action"+i+"'></div>"+
+      "<p>...</p></div><div class='card-action' id='card-action"+i+"'></div>"+
       "</div></div></div>";
-    //Inicialização do Material Boxed
-    $(".materialboxed").materialbox();
   }
   setCSS(getByClass("icone"), "display: 'initial'");
-  //getByClass("button-collapse")[0].sideNav();
-  [...getByClass("flow-toggle")].forEach(function(elem) {
-    elem.addEventListener('click', function(){
-      this.children.toggleClass("flow-text");
-    });
-  });
   
   var i=0;
   getById('maiszoom').addEventListener('click', function(){
@@ -64,14 +55,14 @@ function fade(type, el, duration){
     i = i > 1 ? 2 : i;
     var tamnovo = i == 1 ? '33%' : '50%';
     setCSS(getByClass("grid-item"), "width: " + tamnovo);
-    getByClass('grid').masonry();
+    $('.grid').masonry();
   });
   getById('menoszoom').addEventListener('click', function(){
     i -= 1;
     i = i < 1 ? 0 : i;
     var tamnovo = i == 0 ? '25%' : '33%';
     setCSS(getByClass("grid-item"), "width: " + tamnovo);
-    getByClass('grid').masonry();
+    $('.grid').masonry();
   });
   [...getByClass("exibir")].forEach(function(elem) {
     elem.addEventListener('click', function(){
@@ -123,7 +114,7 @@ var Ajax = {
 
   var $container = getByClass("grid");
   imagesLoaded($container, function() {
-    //fade("in", getByClass("grid-item"), 1000);
+    fade("in", getByClass("grid-item"), 1000);
     getByClass("grid-item")[0].style.display = 'block';
     $('.grid').masonry({
       itemSelector: '.grid-item',
