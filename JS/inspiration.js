@@ -121,19 +121,9 @@ var Ajax = {
       columnwidth: '.grid-sizer',
       //isFitWidth: true,
       percentPosition: true
-      //originTop: false
     })
-    //msnry.layout();
   });
-}); 
-/*$(".card.hoverable").on({
-    mouseenter: function() {
-    var tamNovo = $(this).css('height');
-    $('.frase').css('height', tamNovo);
-    $(this).find('.card-image').slideUp();
-    $(this).find('.frase').slideDown();
-  }, mouseleave: function() {
-    $(this).find('.frase').slideUp();
-    $(this).find('.card-image').slideDown();
-  } 
-});*/
+  $(".icone.third").on('click', function(){
+    $(".card-content, .card-action").toggleClass('dark');
+  })
+});

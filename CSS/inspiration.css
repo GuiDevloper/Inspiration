@@ -28,17 +28,18 @@ body {
 }
 .card .card-content {
   padding: 24px;
+  transition: 1s ease-in;
 }
 .card-content {
   min-height: 10%;
 }
 .card .card-action {
   position: relative;
-  background-color: inherit;
   border-top: 1px solid rgba(160,160,160,0.2);
   padding: 16px 24px;
   font-size: 1rem;
   text-align: center;
+  transition: 1s ease-in;
 }
 a {
   text-decoration: none;
@@ -48,6 +49,7 @@ a {
 }
 .card .card-action.dark {
   background-color: #171717;
+  border-top: 0;
 }
 .card .card-content.dark {
   background-color: rgba(23, 23, 23, 0.95);
@@ -58,13 +60,13 @@ a {
   height: 100%;
 }
 .icone.first {
-  margin-right: 7vh;
+  margin-right: 12vh;
 }
 .icone.second {
-  margin-right: -2vh;
+  margin-right: 5vh;
 }
-.card-content {
-  min-height: 10%;
+.icone.third {
+  margin-right: -2vh;
 }
 .grid-sizer,
 .grid-item {
