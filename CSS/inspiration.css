@@ -5,7 +5,7 @@ body {
   background-attachment: fixed;
   line-height: 1.0;
   font-family: "Roboto", sans-serif;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 300;
   color: rgba(0,0,0,0.87);
 }
@@ -55,9 +55,83 @@ a {
   background-color: rgba(23, 23, 23, 0.95);
   color: aliceblue;
 }
+.fixed-action-btn.active ul {
+    visibility: visible;
+}
+.fixed-action-btn ul {
+    left: 0;
+    right: 0;
+    text-align: center;
+    position: absolute;
+    bottom: 35px;
+    margin: 0;
+    visibility: hidden;
+}
+.card .card-content p {
+  margin: 0;
+}
+.card .card-image img {
+  border-radius: 2px;
+  width: 100%;
+}
+.btn-floating i {
+  width: inherit;
+  text-align: center;
+  color: #fff;
+  font-size: 1.6rem;
+  line-height: inherit;
+}
+.fixed-action-btn {
+  position: fixed;
+  right: 23px;
+  bottom: 23px;
+}
+.material-icons {
+  text-rendering: optimizeLegibility;
+  -webkit-font-feature-settings: 'liga';
+  -moz-font-feature-settings: 'liga';
+  font-feature-settings: 'liga';
+}
+.btn-floating {
+  display: inline-block;
+  color: #fff;
+  overflow: hidden;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  padding: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  vertical-align: middle;
+}
+.fixed-action-btn ul li {
+  margin-bottom: 15px;
+}
+.card, .btn, li {
+  -webkit-box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2);
+  box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2);
+}
+.card:hover {
+  -webkit-box-shadow: 5px 6px 2px 1px rgba(0, 0, 0, 0.33);
+  box-shadow: 5px 6px 2px 1px rgba(0, 0, 0, 0.33);
+}
+.teal.darken-4 {
+  background-color: #004d40 !important;
+}
+.teal-text {
+  color: #009688 !important;
+}
+ul:not(.browser-default) {
+  padding-left: 0;
+  list-style-type: none;
+}
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating) {
+  margin-right: 24px;
+}
 .responsive-img {
   width: 100%;
   height: 100%;
+  margin-bottom: -5px;
 }
 .icone.first {
   margin-right: 12vh;
@@ -78,11 +152,11 @@ a {
 }
 @media screen and (max-width: 380px) {
   .grid-sizer, .grid-item{ width: 100%; }
-  body { font-size: 1.1rem; }
+  body { font-size: 1rem; }
 }
 @media screen and (min-width: 381px) and (max-width: 499px) {
   .grid-sizer, .grid-item{ width: 50%; }
-  body { font-size: 0.8rem; }
+  body { font-size: 1rem; }
 }
 @media screen and (min-width: 500px) and (max-width: 768px) {
   .grid-sizer, .grid-item{ width: 33%; }

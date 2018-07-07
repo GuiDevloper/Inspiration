@@ -40,8 +40,8 @@ function fade(type, el, duration){
       img = i+".gif";
     }
     getByClass("row")[0].innerHTML += 
-      "<div class='grid-item'><div class='card hoverable'>"+
-      "<div class='card-image'><img class='materialboxed' size='100%' "+
+      "<div class='grid-item'><div class='card'>"+
+      "<div class='card-image'><img class='responsive-img' size='100%' "+
       "data-caption='Programe <code> e Desenvolva' src='card/"+img+"'>"+
       "</div><div class='frase' id='frase"+i+"'><div class='card-content flow-toggle'>"+
       "<p>...</p></div><div class='card-action' id='card-action"+i+"'></div>"+
@@ -89,9 +89,9 @@ var Ajax = {
   xhr.onreadystatechange = function() {
     if(Ajax.isReady(this)){
       var i = 1;
+      var result = xhr.responseText;
       [...getByClass("frase")].forEach(function(elem) {
         var x = Math.round(Math.random() * 100);
-        var result = xhr.responseText;
         var posini = result.indexOf(x + ")");
         var texto = result.substr(posini);
         var final = texto.indexOf(" - ");
@@ -114,7 +114,7 @@ var Ajax = {
 
   var $container = getByClass("grid");
   imagesLoaded($container, function() {
-    fade("in", getByClass("grid-item"), 1000);
+    fade("out", getByClass("grid-item"), 1000);
     getByClass("grid-item")[0].style.display = 'block';
     $('.grid').masonry({
       itemSelector: '.grid-item',
@@ -122,7 +122,11 @@ var Ajax = {
       //isFitWidth: true,
       percentPosition: true
     })
+    $('.grid').masonry();
   });
+  $(".icone.second").hover(function(){
+    $(this).toggleClass('active');
+  })
   $(".icone.third").on('click', function(){
     $(".card-content, .card-action").toggleClass('dark');
   })
