@@ -10,6 +10,17 @@ document.addEventListener('DOMContentLoaded', function(){
       el.style.cssText += ";" + value;
     }
   }
+  //Ajax object construído
+  var xhr = new XMLHttpRequest();
+  var Ajax = {
+    'send': function(url, type){
+      xhr.open(type, url, true);
+      xhr.send(null);
+    },
+    'isReady': function($this){
+      return $this.readyState == 4 && $this.status == 200;
+    }
+  };
 // function que realiza fade em element
 function fade(type, el, duration){
   var s = el.style, step = 25/(duration || 300);
@@ -27,7 +38,7 @@ function fade(type, el, duration){
     };
   };
 };
-  
+
   setCSS(getByClass("grid-item"), "display: none");
   var mark = getByClass("row")[0].innerHTML;
   var numimage = mark.substring(
@@ -39,7 +50,7 @@ function fade(type, el, duration){
     if(i==8 || i==15 || i==16){
       img = i+".gif";
     }
-    getByClass("row")[0].innerHTML += 
+    getByClass("row")[0].innerHTML +=
       "<div class='grid-item'><div class='card'>"+
       "<div class='card-image'><img class='responsive-img' size='100%' "+
       "data-caption='Programe <code> e Desenvolva' src='card/"+img+"'>"+
@@ -48,7 +59,7 @@ function fade(type, el, duration){
       "</div></div></div>";
   }
   setCSS(getByClass("icone"), "display: 'initial'");
-  
+
   var i=0;
   getById('maiszoom').addEventListener('click', function(){
     i += 1;
@@ -68,22 +79,12 @@ function fade(type, el, duration){
     elem.addEventListener('click', function(){
       if($('.image:hidden')){
         $('.image').slideDown();
-      } else { 
+      } else {
         $('.image').slideUp();
       }
     })
   });
-var xhr = new XMLHttpRequest();
-//Ajax object construído
-var Ajax = {
-  'send': function(url, type){
-    xhr.open(type, url, true);
-    xhr.send(null);
-  },
-  'isReady': function($this){
-    return $this.readyState == 4 && $this.status == 200;
-  }
-};
+
   //Requisitando informações do arquivo Frases.txt e recebendo na result
   Ajax.send("Frases.txt", "GET");
   xhr.onreadystatechange = function() {
