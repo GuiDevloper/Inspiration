@@ -1,50 +1,34 @@
-document.addEventListener('DOMContentLoaded', function(){
-  var getById = function (id){
-    return document.getElementById(id);
-  }
-  var getByClass = function (clas){
-    return document.getElementsByClassName(clas);
-  }
-  function setCSS(els, value){
-    for (var el of els){
-      el.style.cssText += ";" + value;
-    }
-  }
-  //Ajax object construído
-  var xhr = new XMLHttpRequest();
-  var Ajax = {
-    'send': function(url, type){
-      xhr.open(type, url, true);
-      xhr.send(null);
-    },
-    'isReady': function($this){
-      return $this.readyState == 4 && $this.status == 200;
-    }
-  };
-// function que realiza fade em element
-function fade(type, el, duration){
-  var s = el.style, step = 25/(duration || 300);
-  function delay() {
-    if (type == 'in') {
-      s.display = isFull() ? "none" : s.display;
-    } else {
-      s.opacity = isFull() ? 1 : s.opacity;
-    }
-    //Se realiza callback
-    !isFull() ? setTimeout(delay, 25) : '';
-    //Se esta finalizado
-    function isFull(){
-      return (s.opacity -= step) < 0 || (parseFloat(s.opacity) + step) > 1;
-    };
-  };
+getById = function(id, root) {
+	root = root || document;
+	return root.getElementById(id);
 };
-
-  setCSS(getByClass("grid-item"), "display: none");
-  var mark = getByClass("row")[0].innerHTML;
-  var numimage = mark.substring(
-    mark.indexOf("/") + 1, mark.indexOf(".")
-  ) - 1;
-
+getByClass = function(clas, root) {
+	root = root || document;
+	return root.getElementsByClassName(clas);
+};
+getByTag = function(tag, root) {
+	root = root || document;
+	return root.getElementsByTagName(tag);
+};
+// Set ou update css de elementos
+setStyle = function(els, value) {
+	for (var el of [...els]){
+		el.style.cssText += ";" + value;
+	}
+};
+//Ajax object construído
+var Ajax = {
+	'send': function(url, type) {
+    var xhr = new XMLHttpRequest();
+		xhr.open(type, url, true);
+    xhr.send(null);
+    return xhr;
+	},
+	'isReady': function($this) {
+		return $this.readyState == 4 && $this.status == 200;
+	}
+};
+document.addEventListener('DOMContentLoaded', function(){
   for(var i = numimage; i>=1; i--){
     var img = i + ".jpg";
     if(i==8 || i==15 || i==16){
