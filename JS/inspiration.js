@@ -29,20 +29,55 @@ var Ajax = {
 	}
 };
 document.addEventListener('DOMContentLoaded', function(){
-  for(var i = numimage; i>=1; i--){
-    var img = i + ".jpg";
-    if(i==8 || i==15 || i==16){
-      img = i+".gif";
+  var imgx = Ajax.send("imgs.json", "GET");
+  imgx.onreadystatechange = function() {
+    if(Ajax.isReady(this)){
+      var imgs = JSON.parse(imgx.responseText);
+      for(var col of Object.values(imgs)){
+        for(var item of Object.values(col)){
+          getByClass("row")[0].innerHTML +=
+            "<div class='grid-item'><div class='card'>"+
+            "<div class='card-image' style='"+item[2]+"'><img class='responsive-img' size='100%' "+
+            "src='"+item[1]+"'><a href="+item[0]+">Ver no Pinterest</a>"+
+            "</div><div class='frase'><div class='card-content flow-toggle'>"+
+            "<p>...</p></div><div class='card-action'></div>"+
+            "</div></div></div>";
+        }
+      }
+      getFrases();
     }
-    getByClass("row")[0].innerHTML +=
-      "<div class='grid-item'><div class='card'>"+
-      "<div class='card-image'><img class='responsive-img' size='100%' "+
-      "data-caption='Programe <code> e Desenvolva' src='card/"+img+"'>"+
-      "</div><div class='frase' id='frase"+i+"'><div class='card-content flow-toggle'>"+
-      "<p>...</p></div><div class='card-action' id='card-action"+i+"'></div>"+
-      "</div></div></div>";
-  }
-  setCSS(getByClass("icone"), "display: 'initial'");
+  };
+  setStyle(getByClass("icone"), "display: 'initial'");
+
+  getFrases = function() {
+    //Requisitando informações do arquivo Frases.txt e recebendo na result
+    var frax = Ajax.send("Frases.txt", "GET");
+    frax.onreadystatechange = function() {
+      if(Ajax.isReady(this)){
+        var i = 1;
+        var result = frax.responseText;
+        [...getByClass("frase")].forEach(function(elem) {
+          var x = Math.round(Math.random() * 100);
+          var posini = result.indexOf(x + ")");
+          var texto = result.substr(posini);
+          var final = texto.indexOf(" - ");
+          var Frase = texto.substring(0, final);
+          var autor = texto.substring(final);
+          autor = autor.substring(
+            autor.indexOf(" ")+3, autor.indexOf(",")
+          );
+          var link = "<a class='red-text' href='https://www.google.com.br/"+
+          "search?q=" + autor + "'>" + autor + "</a>";
+          Frase = Frase.replace(x + ")", "");
+          //Modificando texto do elemento com esta id para o texto do resultado
+          elem.getElementsByTagName("p")[0].innerHTML = Frase;
+          var a = elem.getElementsByClassName("card-action");
+          a[0].innerHTML = link;
+          i++;
+        });
+      }
+    };
+  };
 
   var i=0;
   getById('maiszoom').addEventListener('click', function(){
@@ -68,34 +103,6 @@ document.addEventListener('DOMContentLoaded', function(){
       }
     })
   });
-
-  //Requisitando informações do arquivo Frases.txt e recebendo na result
-  Ajax.send("Frases.txt", "GET");
-  xhr.onreadystatechange = function() {
-    if(Ajax.isReady(this)){
-      var i = 1;
-      var result = xhr.responseText;
-      [...getByClass("frase")].forEach(function(elem) {
-        var x = Math.round(Math.random() * 100);
-        var posini = result.indexOf(x + ")");
-        var texto = result.substr(posini);
-        var final = texto.indexOf(" - ");
-        var Frase = texto.substring(0, final);
-        var autor = texto.substring(final);
-        autor = autor.substring(
-          autor.indexOf(" ")+3, autor.indexOf(",")
-        );
-        var link = "<a class='red-text' href='https://www.google.com.br/"+
-        "search?q=" + autor + "'>" + autor + "</a>";
-        Frase = Frase.replace(x + ")", "");
-    	  //Modificando texto do elemento com esta id para o texto do resultado
-        elem.getElementsByTagName("p")[0].innerHTML = Frase;
-        var a = elem.getElementsByClassName("card-action");
-        a[0].innerHTML = link;
-        i++;
-      });
-    }
-  };
 
   var $container = getByClass("grid");
   imagesLoaded($container, function() {
