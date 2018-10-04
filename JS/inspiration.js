@@ -79,42 +79,21 @@ document.addEventListener('DOMContentLoaded', function(){
     };
   };
 
-  var i=0;
-  getById('maiszoom').addEventListener('click', function(){
-    i += 1;
-    i = i > 1 ? 2 : i;
-    var tamnovo = i == 1 ? '33%' : '50%';
-    setCSS(getByClass("grid-item"), "width: " + tamnovo);
-    $('.grid').masonry();
-  });
-  getById('menoszoom').addEventListener('click', function(){
-    i -= 1;
-    i = i < 1 ? 0 : i;
-    var tamnovo = i == 0 ? '25%' : '33%';
-    setCSS(getByClass("grid-item"), "width: " + tamnovo);
-    $('.grid').masonry();
-  });
-  [...getByClass("exibir")].forEach(function(elem) {
+  var i = 0;
+  var icones = [getById('maiszoom'), getById('menoszoom')];
+  var percs = ['25%', '33%', '50%'];
+  [...icones].forEach(function(elem) {
     elem.addEventListener('click', function(){
-      if($('.image:hidden')){
-        $('.image').slideDown();
-      } else {
-        $('.image').slideUp();
-      }
-    })
+      var mais = elem == icones[0];
+      i = mais ? ++i : --i;
+      i = i < 1 ? 0 : (i > 1 ? 2 : i);
+      setStyle(getByClass("grid-item"), "width: " + percs[i]);
+    });
   });
 
   var $container = getByClass("grid");
   imagesLoaded($container, function() {
-    fade("out", getByClass("grid-item"), 1000);
     getByClass("grid-item")[0].style.display = 'block';
-    $('.grid').masonry({
-      itemSelector: '.grid-item',
-      columnwidth: '.grid-sizer',
-      //isFitWidth: true,
-      percentPosition: true
-    })
-    $('.grid').masonry();
   });
   $(".icone.second").hover(function(){
     $(this).toggleClass('active');
