@@ -36,12 +36,20 @@ document.addEventListener('DOMContentLoaded', function(){
       for(var col of Object.values(imgs)){
         for(var item of Object.values(col)){
           getByClass("row")[0].innerHTML +=
-            "<div class='grid-item'><div class='card'>"+
-            "<div class='card-image' style='"+item[2]+"'><img class='responsive-img' size='100%' "+
-            "src='"+item[1]+"'><a href="+item[0]+">Ver no Pinterest</a>"+
-            "</div><div class='frase'><div class='card-content flow-toggle'>"+
-            "<p>...</p></div><div class='card-action'></div>"+
-            "</div></div></div>";
+            `<div class='grid-item'>
+              <div class='card'>
+                <div class='card-image' style="${item[2]}">
+                  <img class='responsive-img' size='100%' src='${item[1]}'>
+                  <a target="_blank" href="${item[0]}">Ver no Pinterest</a>
+                </div>
+                <div class='frase'>
+                  <div class='card-content flow-toggle'>
+                    <p>...</p>
+                  </div>
+                  <div class='card-action'></div>
+                </div>
+              </div>
+            </div>`;
         }
       }
       getFrases();
@@ -104,12 +112,18 @@ document.addEventListener('DOMContentLoaded', function(){
               parseInt(grids[i-4].offsetHeight) : 0)+"px"};
           left: ${j*25 + '%'};`);
       }
+      $container.style.opacity = '1';
     });
   }
-  $(".icone.second").hover(function(){
-    $(this).toggleClass('active');
-  })
-  $(".icone.third").on('click', function(){
-    $(".card-content, .card-action").toggleClass('dark');
-  })
+  function toggle(elem, clas) {
+    elem = getByClass(elem);
+    for (var el of [...elem]) {
+      el.classList.toggle(clas);
+    }
+  }
+  var third = getByClass('third')[0];
+  third.addEventListener('click', function(){
+    toggle('card-content', 'dark');
+    toggle('card-action', 'dark');
+  });
 });
