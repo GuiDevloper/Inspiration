@@ -75,6 +75,7 @@ document.addEventListener('DOMContentLoaded', function(){
           a[0].innerHTML = link;
           i++;
         });
+        isLoaded();
       }
     };
   };
@@ -91,10 +92,20 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   });
 
-  var $container = getByClass("grid");
-  imagesLoaded($container, function() {
-    getByClass("grid-item")[0].style.display = 'block';
-  });
+  var $container = getByClass("grid")[0];
+  function isLoaded() {
+    imagesLoaded($container, function() {
+      var grids = getByClass("grid-item", $container);
+      for (var i = 0, j = 0; i <= 44; i++) {
+        j = j < 3 ? ++j : 0;
+        setStyle([grids[i]],
+          `top: ${(i > 3 ?
+            parseInt(grids[i-4].style.top.replace('px', '')) +
+              parseInt(grids[i-4].offsetHeight) : 0)+"px"};
+          left: ${j*25 + '%'};`);
+      }
+    });
+  }
   $(".icone.second").hover(function(){
     $(this).toggleClass('active');
   })
