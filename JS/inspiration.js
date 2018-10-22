@@ -33,8 +33,11 @@ document.addEventListener('DOMContentLoaded', function(){
   imgx.onreadystatechange = function() {
     if(Ajax.isReady(this)){
       var imgs = JSON.parse(imgx.responseText);
+      // percorre colunas de todas
       for(var col of Object.values(imgs)){
+        // percorre imagem da coluna
         for(var item of Object.values(col)){
+          // adiciona ao DOM
           getByClass("row")[0].innerHTML +=
             `<div class='grid-item'>
               <div class='card'>
@@ -59,34 +62,40 @@ document.addEventListener('DOMContentLoaded', function(){
 
   getFrases = function() {
     //Requisitando informações do arquivo Frases.txt e recebendo na result
-    var frax = Ajax.send("Frases.txt", "GET");
+    var frax = Ajax.send("Frases.json", "GET");
     frax.onreadystatechange = function() {
       if(Ajax.isReady(this)){
-        var i = 1;
-        var result = frax.responseText;
+        var Frases = JSON.parse(frax.responseText);
         [...getByClass("frase")].forEach(function(elem) {
-          var x = Math.round(Math.random() * 100);
-          var posini = result.indexOf(x + ")");
-          var texto = result.substr(posini);
-          var final = texto.indexOf(" - ");
-          var Frase = texto.substring(0, final);
-          var autor = texto.substring(final);
-          autor = autor.substring(
-            autor.indexOf(" ")+3, autor.indexOf(",")
-          );
-          var link = "<a class='red-text' href='https://www.google.com.br/"+
-          "search?q=" + autor + "'>" + autor + "</a>";
-          Frase = Frase.replace(x + ")", "");
-          //Modificando texto do elemento com esta id para o texto do resultado
-          elem.getElementsByTagName("p")[0].innerHTML = Frase;
-          var a = elem.getElementsByClassName("card-action");
-          a[0].innerHTML = link;
-          i++;
+          var sorted = sortNew(Frases);
+          sorted = sorted ? sorted : sortNew(Frases);
+          var frase = sorted[0];
+          var autor = sorted[1];
+          var link = `
+          <a class='red-text' href='https://www.google.com.br/search?q=${autor}'>
+            ${autor}
+          </a>`;
+          // trocando texto do elemento pela frase
+          getByTag("p", elem)[0].innerHTML = frase;
+          getByClass("card-action", elem)[0].innerHTML = link;
         });
         isLoaded();
       }
     };
   };
+
+  var sorteados = [];
+  function sortNew(Frases) {
+    // sorteando
+    var x = Math.round(Math.random() * 100);
+    if (!sorteados.includes(x)) {
+      sorteados.push(x);
+      return Frases[x];
+    }
+    else {
+      return sortNew(Frases);
+    }
+  }
 
   var i = 0;
   var icones = [getById('maiszoom'), getById('menoszoom')];
