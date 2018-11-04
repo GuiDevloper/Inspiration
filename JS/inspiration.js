@@ -11,10 +11,12 @@ getByTag = function(tag, root) {
 	return root.getElementsByTagName(tag);
 };
 // Set ou update css de elementos
-setStyle = function(els, value) {
+setStyle = function(els, value, newGrid) {
 	for (var el of [...els]){
 		el.style.cssText += ";" + value;
-	}
+  }
+  if (newGrid)
+    loadGrid(newGrid);
 };
 //Ajax object construído
 var Ajax = {
@@ -114,9 +116,13 @@ document.addEventListener('DOMContentLoaded', function(){
       var mais = elem == icones[0];
       i = mais ? ++i : --i;
       i = i < 1 ? 0 : (i > 2 ? 3 : i);
-      setStyle(getByClass("grid-item"), `width: ${percs[i]}%`);
-      // Reload positions
-      loadGrid([i == 0 ? 3 : (i == 1 ? 2 : (i == 2 ? 1 : 0))+1, percs[i]]);
+      var newGrid = [(
+        i == 0 ? 3 : (
+          i == 1 ? 2 : (
+            i == 2 ? 1 : 0 ))) + 1, percs[i]
+      ];
+      // Mudando width passando @param pro loadGrid
+      setStyle(getByClass("grid-item"), `width: ${percs[i]}%`, newGrid);
     });
   });
 
@@ -124,7 +130,6 @@ document.addEventListener('DOMContentLoaded', function(){
   function isLoaded() {
     imagesLoaded($container, function() {
       loadGrid();
-      $container.style.opacity = '1';
     });
   }
   // recarrega cards em grid
@@ -134,22 +139,25 @@ document.addEventListener('DOMContentLoaded', function(){
     // recebe vezes e % baseado no tamanho da tela
     var cWid = preWid ? preWid : (width > 1000 ? [4, 25] : (
       width > 769 ? [3, 33] :
-        (width > 381 ? [2, 50] : [1, 100])
+        (width > 500 ? [2, 50] : [1, 100])
     ));
     // muda tamanho da fonte caso necessário
     setStyle(getByTag("body"),
-      `font-size: ${width < 381 ? 0.9 : 1.2 }rem;`
+      `font-size: ${width < 500 ? 0.9 : 1.2 }rem;`
     );
-    for (var i = 0, j = 0; i <= 44; i++) {
-      // usa armazenados, pega anteriores
-      setStyle([grids[i]],
-        `top: ${(i > (cWid[0]-1) ?
-          parseInt(grids[i - cWid[0]].style.top.replace('px', '')) +
-          parseInt(grids[i - cWid[0]].offsetHeight) : 0) + "px"};
-          left: ${j * cWid[1] + '%'};`);
-      // ++ se vezes atual for menor que o vezes armazenado
-      j = j < (cWid[0]-1) ? ++j : 0;
-    }
+    setTimeout(function() {
+      for (var i = 0, j = 0; i <= 44; i++) {
+        // usa armazenados, pega anteriores
+        setStyle([grids[i]],
+          `top: ${(i > (cWid[0]-1) ?
+            parseInt(grids[i - cWid[0]].style.top.replace('px', '')) +
+            parseInt(grids[i - cWid[0]].offsetHeight) : 0)}px;
+            left: ${j * cWid[1]}%;`);
+        // ++ se vezes atual for menor que o vezes armazenado
+        j = j < (cWid[0]-1) ? ++j : 0;
+      }
+      $container.style.opacity = '1';
+    }, 1000);
   };
   function toggle(elem, clas) {
     elem = getByClass(elem);
