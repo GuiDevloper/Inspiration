@@ -39,7 +39,50 @@ var widthBody = function() {
 window.addEventListener('resize', function() {
   loadGrid();
 });
+var pos = 0;
+var loaded = false;
+function typeWriter(txtArray, id) {
+  // SE o caractere é menor que o tamanho da frase atual
+  if (pos < txtArray.length) {
+    // Adiciona mais um caractere do texto
+    id.innerText = txtArray.substr(0, ++pos) + "|";
+    // Faz callback passando os mesmos dados
+    setTimeout(() => {
+      typeWriter(txtArray, id);
+      // tempo dinamico
+    }, loaded ? 50 : 150);
+  } else {
+    id.innerText = "";
+    var nameNeon = getById('nameNeon');
+    var textLogo = getById('text-logo');
+    // durações dinamicas
+    var dur = loaded ? [0.5, 0.5, 1000] : [2, 3, 4500];
+    // ativa animações
+    setStyle([nameNeon],
+      `animation: vanishIn ${dur[0]}s forwards running ease-In-Out;`);
+    setStyle([textLogo],
+      `animation: draw ${dur[1]}s ${dur[0]}s forwards ease-in running;`);
+    // espera fim das animações
+    setTimeout(() => {
+      if (!loaded) {
+        // restart
+        pos = 0;
+        setStyle([nameNeon, textLogo], `animation: initial;`);
+        typeWriter(txtArray, id);
+      } else {
+        // oculta tudo
+        var back = [getById('back')];
+        setStyle(back, 'opacity: 0;');
+        setTimeout(() => {
+          setStyle(back, 'display: none;');
+        }, 500);
+      }
+    }, dur[2]);
+  }
+}
 document.addEventListener('DOMContentLoaded', function(){
+  show = true;
+  hidePlaca();
   var imgx = Ajax.send("imgs.json", "GET");
   imgx.onreadystatechange = function() {
     if(Ajax.isReady(this)){
@@ -157,8 +200,15 @@ document.addEventListener('DOMContentLoaded', function(){
         j = j < (cWid[0]-1) ? ++j : 0;
       }
       $container.style.opacity = '1';
+      window.loaded = true;
     }, 1000);
   };
+  function hidePlaca() {
+    if (show) {
+      typeWriter("GuiDevloper", getById('type'));
+    }
+    show = false;
+  }
   function toggle(elem, clas) {
     elem = getByClass(elem);
     for (var el of [...elem]) {
