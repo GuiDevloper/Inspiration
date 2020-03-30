@@ -6,7 +6,7 @@ import {
   setStyle,
   Ajax,
   widthBody
-} from './module.js';
+} from 'minimalista';
 
 window.addEventListener('resize', function() {
   loadGrid();
