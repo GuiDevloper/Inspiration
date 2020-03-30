@@ -170,6 +170,8 @@ document.addEventListener('DOMContentLoaded', function(){
             parseInt(grids[i - cWid[0]].style.top.replace('px', '')) +
             parseInt(grids[i - cWid[0]].offsetHeight) : 0)}px;
             left: ${j * cWid[1]}%;`);
+        getByTag('a', grids[i])[0].style.marginTop = (
+          getByClass('responsive-img', grids[i])[0].height - 25) + 'px';
         // ++ se vezes atual for menor que o vezes armazenado
         j = j < (cWid[0]-1) ? ++j : 0;
       }
